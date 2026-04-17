@@ -1,0 +1,22 @@
+---
+- name: "Add repository to Helm"
+  hosts: "bastion,k8s_bastion,ocp_bastion"
+  gather_facts: "true"
+
+  tasks:
+    - name: "Add repository"
+      ansible.builtin.shell: |
+        helm repo add trikorasolns {{ helm_repo }}
+      loop: "{{ helm_repos }}"
+      loop_control:
+        loop_var: helm_repo
+      register: helm_repo_add_res
+      changed_when: >
+        helm_repo_add_res.rc == 0 
+        and 'already exists' not in helm_repo_add_res.stdout
+
+    - name: "Helm repository add result"
+      ansible.builtin.debug:
+        var: helm_repo_add_res
+        verbosity: 2
+...
