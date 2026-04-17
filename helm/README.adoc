@@ -1,0 +1,67 @@
+= Deploy Helm on Bastion host
+:author:    Antonio C.
+:email:     <ac (at) trikorasolutions (dot) com>
+:revdate: {docdate}
+:toc:       left
+:toc-title: Table of Contents
+:toclevels: 2
+:icons: font
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Abstract
+
+Installs helm on host using package manager.
+
+=== Hosts
+
+The hosts must be included in one of the following groups:
+
+- `bastion`
+- `k8s_bastion`
+- `ocp_bastion`
+
+== Install
+
+[.lead]
+Install helm.
+
+[source,bash]
+----
+ansible-playbook helm/helm-install-playbook.yaml
+----
+
+== Uninstall
+
+[.lead]
+Uninstall helm.
+
+[source,bash]
+----
+ansible-playbook helm/helm-uninstall-playbook.yaml
+----
+
+== Repository management
+
+[.lead]
+Operations on repository management.
+
+Add repositories to helm.
+
+[source,bash]
+----
+ansible-playbook helm/helm-repo-add-playbook.yaml \
+  -e '{"helm_repos": ["https://trikorasolns.github.io/helm-charts"]}'
+----
+
+Update installed repositories.
+
+[source,bash]
+----
+ansible-playbook helm/helm-repo-update-playbook.yaml
+----

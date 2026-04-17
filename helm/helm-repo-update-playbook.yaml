@@ -1,0 +1,16 @@
+---
+- name: "Update Helm repositories"
+  hosts: "bastion,k8s_bastion,ocp_bastion"
+  gather_facts: "true"
+
+  tasks:
+    - name: "Add repository"
+      ansible.builtin.shell: |
+        helm repo update
+      register: helm_repo_update_res
+
+    - name: "Helm repository update result"
+      ansible.builtin.debug:
+        var: helm_repo_update_res
+        verbosity: 2
+...
