@@ -6,7 +6,7 @@
   tasks:
     - name: "Add repository"
       ansible.builtin.shell: |
-        helm repo add trikorasolns {{ helm_repo }}
+        helm repo add {{ helm_repo.name }} {{ helm_repo.url }}
       loop: "{{ helm_repos }}"
       loop_control:
         loop_var: helm_repo

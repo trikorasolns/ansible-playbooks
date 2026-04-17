@@ -49,17 +49,34 @@ ansible-playbook helm/helm-uninstall-playbook.yaml
 == Repository management
 
 [.lead]
-Operations on repository management.
+Repository management operation.
 
-Add repositories to helm.
+=== Add repositories to helm
+
+Variables.
+
+[%header,cols="20%,80%"]
+|===
+
+| Field name | Description
+
+| `helm_repos`
+
+[.fuchsia]#list#
+
+[.red]#required# 
+
+| List of Helm repositories with `name` and `host`.
+
+|===
 
 [source,bash]
 ----
 ansible-playbook helm/helm-repo-add-playbook.yaml \
-  -e '{"helm_repos": ["https://trikorasolns.github.io/helm-charts"]}'
+  -e '{"helm_repos": [{"name":"trikorasolns","url":"https://trikorasolns.github.io/helm-charts"}]}'
 ----
 
-Update installed repositories.
+=== Update installed repositories
 
 [source,bash]
 ----
